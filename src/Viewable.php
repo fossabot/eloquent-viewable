@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use CyrildeWit\EloquentViewable\Contracts\View as ViewContract;
 
 /**
- * @method static self|Builder orderByViews(string $direction = 'desc', ?Period $period = null)
- * @method static self|Builder orderByUniqueViews(string $direction = 'desc', ?Period $period = null)
+ * @method static self|Builder orderByViews(string $direction = 'desc', ?Period $period = null, ?string $collection)
+ * @method static self|Builder orderByUniqueViews(string $direction = 'desc', ?Period $period = null, ?string $collection)
  **/
 trait Viewable
 {
