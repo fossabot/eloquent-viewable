@@ -49,13 +49,18 @@ trait Viewable
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  string  $direction
      * @param  \CyrildeWit\EloquentViewable\Support\Period|null  $period
+     * @param  string|null  $collection
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOrderByViews(Builder $query, string $direction = 'desc', $period = null): Builder
+    public function scopeOrderByViews(Builder $query, string $direction = 'desc', $period = null, string $collection = null): Builder
     {
         return $query->withCount(['views' => function ($query) use ($period) {
             if ($period) {
                 $query->withinPeriod($period);
+            }
+
+            if($collection) {
+                $query->collection($collection);
             }
         }])->orderBy('views_count', $direction);
     }
@@ -66,15 +71,20 @@ trait Viewable
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  string  $direction
      * @param  \CyrildeWit\EloquentViewable\Support\Period|null  $period
+     * @param  string|null  $collection
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOrderByUniqueViews(Builder $query, string $direction = 'desc', $period = null): Builder
+    public function scopeOrderByUniqueViews(Builder $query, string $direction = 'desc', $period = null, string $collection = null): Builder
     {
         return $query->withCount(['views' => function ($query) use ($period) {
             $query->uniqueVisitor();
 
             if ($period) {
                 $query->withinPeriod($period);
+            }
+
+            if($collection) {
+                $query->collection($collection);
             }
         }])->orderBy('views_count', $direction);
     }
